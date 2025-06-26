@@ -1,0 +1,70 @@
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Country</title>
+    <link rel="stylesheet" href="/stile.css?version=2" />
+  </head>
+
+  <body>
+    <div><a href="/"><img src="/logo-siw.png" width="50%"/></a></div>
+
+    <div th:if="${country}">
+      <h1 th:text="${country.name}">countryName</h1>
+
+      <div>
+        <img th:src="${country.urlImage}" alt="flag image" width="300" />
+        <div>
+          <a th:href="@{'/admin/formUpdateCountryImage/' + ${country.id}}">Update Image</a>
+        </div>
+      </div>
+
+	  
+	  
+	  
+	  
+      <!-- ✅ COMMENTS SECTION -->
+      <hr/>
+      <h2>Comments</h2>
+
+      <div th:if="${country.comments != null and !country.comments.isEmpty()}">
+        <ul>
+          <li th:each="comment : ${country.comments}">
+            <strong th:text="${comment.user.credentials.username}">Username</strong>:
+            <span th:text="${comment.text}">Comment text</span>
+            <small th:text="${#temporals.format(comment.createdAt, 'dd/MM/yyyy HH:mm')}"></small>
+          </li>
+        </ul>
+      </div>
+
+      <div th:unless="${country.comments != null and !country.comments.isEmpty()}">
+        <p>No comments yet. Be the first to comment!</p>
+      </div>
+	  
+	  
+	  
+	  
+	  <p th:if="${country.comments == null}">comments null</p>
+	  <p th:if="${country.comments.isEmpty()}">comments empty</p>
+
+
+	  
+      <!-- ✅ COMMENT FORM -->
+      <hr/>
+      <h3>Add a Comment</h3>
+      <form action="/addComment" method="post">
+        <input type="hidden" name="countryId" th:value="${country.id}" />
+        <textarea name="text" rows="4" cols="50" placeholder="Write your comment..." required></textarea><br/>
+        <button type="submit">Post</button>
+      </form>
+    </div>
+	
+	
+	
+	
+    <div th:unless="${country}">
+      <p>Non esiste</p>
+    </div>
+  </body>
+</html>

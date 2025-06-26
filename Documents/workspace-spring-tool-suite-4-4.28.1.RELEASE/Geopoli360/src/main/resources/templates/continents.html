@@ -1,0 +1,21 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Continents</title>
+    <link rel="stylesheet" href="/stile.css?version=2" />
+  </head>
+
+  <body>
+	<div></div><a href="/"><img src="/logo-siw.png" width="50%"/></a></div>
+	
+    <h1>Continents</h1>
+    <ul>
+      <li th:each="continent : ${continents}">
+        <a th:href="@{'/continentCountries' + '/' + ${continent.id}}"
+           th:text="${continent.name}">nomeContinente</a>
+      </li>
+    </ul>
+  </body>
+
+</html>
